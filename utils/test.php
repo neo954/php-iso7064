@@ -27,9 +27,9 @@ $tests = array(
 	 );
 
 # Execute tests
-foreach(array_keys($tests) as $algorithm) {
+foreach (array_keys($tests) as $algorithm) {
  print "[$algorithm]\n";
- foreach($tests[$algorithm] as $input=>$expected_output) {
+ foreach ($tests[$algorithm] as $input => $expected_output) {
   print " - $algorithm('$input') ... ";
   $result = $algorithm($input);
   if($result != $expected_output) {
