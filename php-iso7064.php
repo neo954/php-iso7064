@@ -90,14 +90,14 @@ function iso7064_mod661_26($input) {
 
 # ISO/IEC 7064, MOD 1271-36
 # @param $input string Must contain only characters ('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ').
-# @output A 2 character string containing '0123456789ABCDEFGHIJKLMNOPQRSTUVWXZY',
+# @output A 2 character string containing '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ',
 #         or '' (empty string) on failure due to bad input.
 function iso7064_mod1271_36($input) {
  $input = strtoupper($input); # normalize
  if (!preg_match('/^[0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ]+$/', $input)) { return ''; } # bad input
  $modulus       = 1271;
  $radix         = 36;
- $output_values = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXZY';
+ $output_values = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
  $p             = 0;
  for ($i = 0; $i < strlen($input); ++$i) {
   $val = strpos($output_values, $input[$i]);
