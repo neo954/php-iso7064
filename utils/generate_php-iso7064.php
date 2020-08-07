@@ -41,7 +41,7 @@ foreach (array_keys($__iso7064_algorithms) as $algorithm) {
  print " \$output_values = '" . $__iso7064_algorithms[$algorithm]['output_values'] . "';\n";    # chars
  print " \$p             = 0;\n";
  print " for (\$i = 0; \$i < strlen(\$input); ++\$i) {\n";
- print "  \$val = strpos(\$output_values, substr(\$input, \$i, 1));\n"; # later +1?
+ print "  \$val = strpos(\$output_values, \$input[\$i]);\n"; # later +1?
  print "  if (\$val < 0) { return ''; } # illegal character encountered\n";
  print "  \$p = ((\$p + \$val) * \$radix) % \$modulus;\n";
  print " }\n";
@@ -52,10 +52,10 @@ foreach (array_keys($__iso7064_algorithms) as $algorithm) {
  if ($__iso7064_algorithms[$algorithm]['output_qty'] > 1) {
   print " \$second = \$checksum % \$radix;\n";
   print " \$first = (\$checksum - \$second) / \$radix;\n";
-  print " return substr(\$output_values, \$first, 1) . substr(\$output_values, \$second, 1);\n";
+  print " return \$output_values[\$first] . \$output_values[\$second];\n";
  }
  else {
-  print " return substr(\$output_values, \$checksum, 1);\n"; # later +1?
+  print " return \$output_values[\$checksum];\n"; # later +1?
  }
  print "}\n\n";
 }
