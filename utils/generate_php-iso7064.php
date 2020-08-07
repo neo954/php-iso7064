@@ -8,9 +8,9 @@ function __iso7064_load_algorithms() {
  $data = file_get_contents($algorithms_definition);
  $lines = split("\n",$data);
  array_shift($lines); # drop header
- foreach($lines as $line) {
-  if($line!='') {
-   list($title,$code,$inputs,$output_qty,$output_values,$modulus,$radix) = explode('|',$line);
+ foreach ($lines as $line) {
+  if ($line != '') {
+   list($title, $code, $inputs, $output_qty, $output_values, $modulus, $radix) = explode('|', $line);
    $algorithm_details = array(
 				'title'		=> $title,
 				'code'		=> $code,
@@ -28,9 +28,9 @@ function __iso7064_load_algorithms() {
 __iso7064_load_algorithms();
 
 print "<?php\n\n# NOTE: This file is generated code. Do not edit manually.\n\n";
-foreach(array_keys($__iso7064_algorithms) as $algorithm) {
+foreach (array_keys($__iso7064_algorithms) as $algorithm) {
  print "# " . $__iso7064_algorithms[$algorithm]['title'] . "\n";
- print "# @param \$input string Must contain only characters ('".$__iso7064_algorithms[$algorithm]['inputs']."').\n";
+ print "# @param \$input string Must contain only characters ('" . $__iso7064_algorithms[$algorithm]['inputs'] . "').\n";
  print "# @output A " . $__iso7064_algorithms[$algorithm]['output_qty'] . " character string containing '" . $__iso7064_algorithms[$algorithm]['output_values'] . "',\n";
  print "#         or '' (empty string) on failure due to bad input.\n";
  print "function $algorithm(\$input) {\n";
@@ -45,11 +45,11 @@ foreach(array_keys($__iso7064_algorithms) as $algorithm) {
  print "  if (\$val < 0) { return ''; } # illegal character encountered\n";
  print "  \$p = ((\$p + \$val) * \$radix) % \$modulus;\n";
  print " }\n";
- if($__iso7064_algorithms[$algorithm]['output_qty']>1) {
+ if ($__iso7064_algorithms[$algorithm]['output_qty'] > 1) {
   print " \$p = (\$p * \$radix) % \$modulus;\n";
  }
  print " \$checksum = (\$modulus - \$p + 1) % \$modulus;\n";
- if($__iso7064_algorithms[$algorithm]['output_qty']>1) {   	
+ if ($__iso7064_algorithms[$algorithm]['output_qty'] > 1) {
   print " \$second = \$checksum % \$radix;\n";
   print " \$first = (\$checksum - \$second) / \$radix;\n";
   print " return substr(\$output_values, \$first, 1) . substr(\$output_values, \$second, 1);\n";
